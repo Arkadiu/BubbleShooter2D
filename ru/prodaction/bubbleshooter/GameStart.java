@@ -1,3 +1,5 @@
+package ru.prodaction.bubbleshooter;
+
 import javax.swing.*;
 
 public class GameStart {
