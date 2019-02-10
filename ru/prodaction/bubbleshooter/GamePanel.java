@@ -15,7 +15,8 @@ public class GamePanel extends JPanel implements Runnable {
     private BufferedImage image;
     private Graphics2D g;
 
-    private GameBack background;
+    public static GameBack background;
+    public static Player player;
 
     //Constructor
     public GamePanel() {
@@ -37,7 +38,10 @@ public class GamePanel extends JPanel implements Runnable {
     public void run() {
         image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
         g = (Graphics2D) image.getGraphics();
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
         background = new GameBack();
+        player = new Player();
 
         while (true) {       //TODO States
 
@@ -57,15 +61,17 @@ public class GamePanel extends JPanel implements Runnable {
         //Background update
         background.update();
 
-        /*
+        //Player update
         player.update();
-        enemy.update();
-        */
+
     }
 
     public void gameRender() {
         //Background draw
         background.draw(g);
+
+        //Player draw
+        player.draw(g);
     }
 
     private void gameDraw() {
