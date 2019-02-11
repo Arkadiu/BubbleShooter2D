@@ -8,6 +8,9 @@ public class Player {
     private double y;
     private int r;
 
+    private double dx;  //коэф смещения по х
+    private double dy;  //кожф смешения по у
+
     private int speed;
 
     private Color color1;
@@ -17,6 +20,7 @@ public class Player {
     public static boolean DOWN;
     public static boolean LEFT;
     public static boolean RIGHT;
+    public static boolean isFiring;
 
 
     //Constructor
@@ -26,25 +30,44 @@ public class Player {
         r = 5;
         color1 = Color.WHITE;
         speed = 5;
+
+        dx = 0;
+        dy = 0;
         UP = false;
         DOWN = false;
         RIGHT = false;
         LEFT = false;
+        isFiring = false;
     }
 
     //Functions
     public void update() {
         if (UP && y > r) {
-            y -= speed;
+            dy = -speed;
         }
         if (DOWN && y < GamePanel.HEIGHT - r) {
-            y += speed;
+            dy = speed;
         }
         if (LEFT && x > r) {
-            x -= speed;
+            dx = -speed;
         }
         if (RIGHT && x < GamePanel.WIDTH - r) {
-            x += speed;
+            dx = speed;
+        }
+
+        if (UP && LEFT || UP && RIGHT || DOWN && LEFT || DOWN && RIGHT) {
+            dy = dy * Math.sin(45);
+            dx = dx * Math.cos(45);
+        }
+
+        y += dy;
+        x += dx;
+
+        dy = 0;
+        dx = 0;
+
+        if (isFiring){
+            GamePanel.bullets.add(new Bullet());
         }
     }
 
@@ -55,5 +78,13 @@ public class Player {
         g.setColor(color1.darker());
         g.drawOval((int) (x - r), (int) (y - r), 2 * r, 2 * r);
         g.setStroke(new BasicStroke(1));
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
     }
 }

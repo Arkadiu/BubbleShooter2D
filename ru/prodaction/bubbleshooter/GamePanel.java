@@ -3,6 +3,7 @@ package ru.prodaction.bubbleshooter;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -17,6 +18,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public static GameBack background;
     public static Player player;
+    public static ArrayList<Bullet> bullets;
 
     //Constructor
     public GamePanel() {
@@ -43,6 +45,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         background = new GameBack();
         player = new Player();
+        bullets = new ArrayList<Bullet>();
 
         while (true) {       //TODO States
 
@@ -65,6 +68,11 @@ public class GamePanel extends JPanel implements Runnable {
         //Player update
         player.update();
 
+        //Bullet update
+        for (Bullet bullet : bullets) {
+            bullet.update();
+        }
+
     }
 
     public void gameRender() {
@@ -73,6 +81,11 @@ public class GamePanel extends JPanel implements Runnable {
 
         //Player draw
         player.draw(g);
+
+        //Bullets draw
+        for(Bullet bullet : bullets){
+            bullet.draw(g);
+        }
     }
 
     private void gameDraw() {
