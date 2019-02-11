@@ -26,6 +26,7 @@ public class GamePanel extends JPanel implements Runnable {
         setFocusable(true);
         requestFocus();
 
+        addKeyListener(new Listeners());
     }
 
     //Functions
