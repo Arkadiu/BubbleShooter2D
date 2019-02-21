@@ -20,6 +20,12 @@ public class Bullet {
     }
 
     //Functions
+    public boolean remove(){
+        if(y < 0){
+            return true;
+        }
+        return false;
+    }
     public void update() {
         y -= speed;
     }

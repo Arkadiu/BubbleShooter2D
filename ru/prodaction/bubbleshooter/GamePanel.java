@@ -69,10 +69,13 @@ public class GamePanel extends JPanel implements Runnable {
         player.update();
 
         //Bullet update
-        for (Bullet bullet : bullets) {
-            bullet.update();
+        for (int i = 0; i < bullets.size(); i++) {
+            bullets.get(i).update();
+            boolean remove = bullets.get(i).remove();
+            if (remove) {
+                bullets.remove(i--);
+            }
         }
-
     }
 
     public void gameRender() {
@@ -83,7 +86,7 @@ public class GamePanel extends JPanel implements Runnable {
         player.draw(g);
 
         //Bullets draw
-        for(Bullet bullet : bullets){
+        for (Bullet bullet : bullets) {
             bullet.draw(g);
         }
     }
